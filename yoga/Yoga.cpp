@@ -2193,7 +2193,7 @@ static float YGDistributeFreeSpaceSecondPass(
         layoutMarkerData,
         layoutContext);
     node->setLayoutHadOverflow(
-        node->getLayout().hadOverflow |
+        node->getLayout().hadOverflow ||
         currentRelativeChild->getLayout().hadOverflow);
   }
   return deltaFreeSpace;
@@ -3426,8 +3426,8 @@ static void YGNodelayoutImpl(
                 YGNodeBoundAxisWithinMinAndMax(
                     node,
                     crossAxis,
-                    YGFloatOptional{totalLineCrossDim +
-                                    paddingAndBorderAxisCross},
+                    YGFloatOptional{
+                        totalLineCrossDim + paddingAndBorderAxisCross},
                     crossAxisownerSize)
                     .unwrap()),
             paddingAndBorderAxisCross),
@@ -4104,9 +4104,7 @@ void YGNodeCalculateLayoutWithContext(
     if (node->getConfig()->printTree) {
       YGNodePrint(
           node,
-          (YGPrintOptions)(
-              YGPrintOptionsLayout | YGPrintOptionsChildren |
-              YGPrintOptionsStyle));
+          (YGPrintOptions) (YGPrintOptionsLayout | YGPrintOptionsChildren | YGPrintOptionsStyle));
     }
 #endif
   }
@@ -4162,9 +4160,7 @@ void YGNodeCalculateLayoutWithContext(
       if (originalNode->getConfig()->printTree) {
         YGNodePrint(
             originalNode,
-            (YGPrintOptions)(
-                YGPrintOptionsLayout | YGPrintOptionsChildren |
-                YGPrintOptionsStyle));
+            (YGPrintOptions) (YGPrintOptionsLayout | YGPrintOptionsChildren | YGPrintOptionsStyle));
       }
 #endif
     }
